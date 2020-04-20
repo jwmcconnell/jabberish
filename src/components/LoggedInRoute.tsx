@@ -19,15 +19,13 @@ const LoggedInRoute = ({
   const history = useHistory();
   if (!userId) history.push('/login');
   return (
-    <>
-      <Route
-        render={(otherProps) => (
-          <>
-            <Component {...otherProps} />
-          </>
-        )}
-      />
-    </>
+    <Route
+      render={(otherProps) => (
+        <>
+          <Component {...otherProps} />
+        </>
+      )}
+    />
   );
 };
 

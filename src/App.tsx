@@ -4,6 +4,7 @@ import Login from './containers/Login';
 import Register from './containers/Register';
 import Header from './components/Header';
 import Home from './containers/Home';
+import Workspaces from './containers/Workspaces';
 import LoggedInRoute from './components/LoggedInRoute';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route path="/Login" exact component={Login} />
         <Route path="/Register" exact component={Register} />
+        <LoggedInRoute path="/workspaces" exact={true} component={Workspaces} />
         <LoggedInRoute path="/" component={Home} />
       </Switch>
     </Router>
