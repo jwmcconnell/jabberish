@@ -20,7 +20,6 @@ const LoggedInRoute = ({
   if (!userId) history.push('/login');
   return (
     <>
-      <Header />
       <Route
         render={(otherProps) => (
           <>
