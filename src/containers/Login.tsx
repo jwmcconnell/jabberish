@@ -4,7 +4,6 @@ import { getUserId, getUserError } from '../selectors/userSelectors';
 import { IAuthCredentials } from '../interfaces/auth-credentials';
 import { loginUser } from '../actions/userActions';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 const Login = (props: { submitLogin: (user: IAuthCredentials) => void }) => {
   const [username, setUsername] = useState('');

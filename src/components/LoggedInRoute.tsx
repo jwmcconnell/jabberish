@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, useHistory } from 'react-router-dom';
-import Header from './Header';
 import { connect } from 'react-redux';
 import { getUserId } from '../selectors/userSelectors';
 
