@@ -1,11 +1,16 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import AuthForm from '../components/AuthForm';
 import { fetchLogin } from '../services/auth-api';
+import { getUserId, getUserError } from '../selectors/userSelectors';
+import { IAuthCredentials } from '../interfaces/auth-credentials';
+import { loginUser } from '../actions/userActions';
+import { connect } from 'react-redux';
 
-const Login = () => {
+const Login = (props: { submitLogin: (user: IAuthCredentials) => void }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<Error>();
+
+  const { submitLogin } = props;
 
   const handleUpdateUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -17,11 +22,7 @@ const Login = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    fetchLogin({ username, password })
-      .then(console.log)
-      .catch((err: Error) => {
-        setError(err);
-      });
+    submitLogin({ username, password });
   };
 
   return (
@@ -37,4 +38,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state: any) => ({
+  userId: getUserId(state),
+  error: getUserError(state),
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  submitLogin: (user: IAuthCredentials) => dispatch(loginUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
