@@ -1,4 +1,4 @@
-const signinUser = (user: { username: string; password: string }) => {
+const fetchLogin = (user: { username: string; password: string }) => {
   return fetch('http://localhost:3000/api/v1/auth/signin', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
@@ -16,7 +16,7 @@ const signinUser = (user: { username: string; password: string }) => {
     });
 };
 
-const signupUser = (user: { username: string; password: string }) => {
+const fetchRegister = (user: { username: string; password: string }) => {
   return fetch('http://localhost:3000/api/v1/auth/signup', {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
@@ -35,7 +35,7 @@ const signupUser = (user: { username: string; password: string }) => {
     });
 };
 
-const verifyUser = () => {
+const fetchVerify = () => {
   return fetch('http://localhost:3000/api/v1/auth/verify', {
     mode: 'cors',
     method: 'get',
@@ -44,4 +44,4 @@ const verifyUser = () => {
   }).then((res) => res.json());
 };
 
-export { signupUser, signinUser, verifyUser };
+export { fetchLogin, fetchRegister, fetchVerify };

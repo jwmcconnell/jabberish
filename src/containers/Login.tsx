@@ -1,9 +1,11 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import AuthForm from '../components/AuthForm';
+import { fetchLogin } from '../services/auth-api';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState<Error>();
 
   const handleUpdateUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -13,8 +15,13 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = () => {
-    console.log(username, password);
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    fetchLogin({ username, password })
+      .then(console.log)
+      .catch((err: Error) => {
+        setError(err);
+      });
   };
 
   return (
