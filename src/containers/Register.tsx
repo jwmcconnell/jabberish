@@ -1,10 +1,19 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import AuthForm from '../components/AuthForm';
-import { signupUser } from '../services/auth-api';
+import { connect } from 'react-redux';
+import { getUserId, getUserError } from '../selectors/userSelectors';
+import { registerUser } from '../actions/userActions';
+import { IAuthCredentials } from '../interfaces/auth-credentials';
 
-const Register = () => {
+const Register = (props: {
+  submitRegister: (user: IAuthCredentials) => void;
+  userId: string;
+  error: string;
+}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  const { submitRegister } = props;
 
   const handleUpdateUsername = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
@@ -16,8 +25,7 @@ const Register = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(username, password);
-    signupUser({ username, password }).then(console.log);
+    submitRegister({ username, password });
   };
 
   return (
@@ -33,4 +41,13 @@ const Register = () => {
   );
 };
 
-export default Register;
+const mapStateToProps = (state: any) => ({
+  userId: getUserId(state),
+  error: getUserError(state),
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  submitRegister: (user: IAuthCredentials) => dispatch(registerUser(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
